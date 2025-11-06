@@ -40,7 +40,7 @@ Aquí creamos la lógica de Login y Registro. Crearemos una nueva Activity para 
 
 1. **Crear Activities y XML**:
 
-* Activity de Login: Click derecho en el paquete (ej: com.midominio.miappfirebase) -> New -> Activity -> Empty Views Activity. Nombrarla LoginActivity.
+* Activity de Login: Click derecho en el paquete (ej: com.example.miappfirebase) -> New -> Activity -> Empty Views Activity. Nombrarla LoginActivity.
 
 * Activity Principal (Home): Renombrar MainActivity a HomeActivity (Refactor -> Rename).
 
