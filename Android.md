@@ -10,7 +10,7 @@ Herramientas:
 **Creación en Consola Firebase**:
 
 1. Ir a https://console.firebase.google.com.
-2. Crear un nuevo proyecto (ej: "MiAppFirebaseDemo").
+2. Crear un nuevo proyecto (ej: "MiAppFirebase").
 3. Dentro del proyecto, añadir una app de Android.
 4. IMPORTANTE: El "Package Name" de Android debe coincidir exactamente con el del proyecto de Android Studio (ej: com.midominio.miappfirebase).
 5. Descargar el archivo **google-services.json**.
