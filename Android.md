@@ -44,7 +44,7 @@ Aquí creamos la lógica de Login y Registro. Crearemos una nueva Activity para 
 
 * Activity Principal (Home): Renombrar MainActivity a HomeActivity (Refactor -> Rename).
 
-* Actualizar AndroidManifest.xml: Mover el <intent-filter> de HomeActivity a LoginActivity. Esto hace que LoginActivity sea la pantalla de inicio.
+* Actualizar AndroidManifest.xml: Mover el contenido de HomeActivity a LoginActivity. Esto hace que LoginActivity sea la pantalla de inicio.
 
 ```
 <activity android:name=".LoginActivity" android:exported="true">
