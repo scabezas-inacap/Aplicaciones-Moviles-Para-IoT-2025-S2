@@ -188,6 +188,21 @@ public class LoginActivity extends AppCompatActivity {
 }
 ```
 
+3. Modificar el archivo **build.gradle (:app)** agregando la dependencia de Google Services Gradle Plugin
+
+```java
+id 'com.google.gms.google-services'
+```
+
+Quedando así la sección de **Plugins**:
+
+```java
+plugins {
+    alias(libs.plugins.android.application)
+    id 'com.google.gms.google-services'
+}
+```
+
 ## Módulo 5: Realtime Database (Guardar datos)
 
 Ahora, en HomeActivity, vamos a guardar la fecha de nacimiento.
