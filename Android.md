@@ -58,11 +58,11 @@ Aquí creamos la lógica de Login y Registro. Crearemos una nueva Activity para 
 
 2. **Diseño XML (activity_login.xml)**:
 
-* Añadir 2 EditText (para email y password).
+* En **Palette** seleccionar **Layouts** y arrastrar el **Linear Layout (Vertical)**.
 
-* Añadir 2 Button (para "Registrar" y "Acceder").
+* Añadir 2 EditText (para **email** y **password**). Haga click en el objeto, vaya a `Attributes` cambie el **id** por: **etEmail** y **etPassword** respectivamente. Cambiar el **Text Align** a Center, y agregar un **Hint** que diga **Email**, y en el otro **Password** funciona como placeholder.
 
-* (Usar un LinearLayout vertical es lo más rápido para la clase).
+* Añadir 2 Button (para "Registrar" y "Acceder"). Haga click en el objeto, vaya a `Attributes` cambie el **id** por: **btnRegistrar** y **btnAcceder** respectivamente. Cambiar el **Text** a **Registrar** y **Acceder** Respectivamente.
 
 3. Código Java (LoginActivity.java): Este es el núcleo de la clase.
 
