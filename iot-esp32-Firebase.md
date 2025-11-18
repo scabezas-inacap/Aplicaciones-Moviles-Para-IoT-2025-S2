@@ -12,6 +12,7 @@ Utilizando **ESP32** o ***ESP8266*** (ya que el Arduino Uno estándar no tiene W
 * Ten instalado [VSCode](https://code.visualstudio.com/download). Necesitaremos algunas extensiones.
 * Instala la extensión de Wokwi [descargar](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode)
 * Solicitar una licencia de Wokwi [solicitar](https://wokwi.com/license?v=3.0.0&r=UserRequest&s=v)
+* Configuración de Wokwi en [VSCode](https://docs.wokwi.com/vscode/project-config)
 
 ## 1\. ¿Cómo simular la App?
 
