@@ -18,7 +18,7 @@ En wokwi.toml:
 version = 1
 firmware = 'firmware.uf2'
 ```
-
+En sketch.ino
 ```ino
 // 1. Agregar la biblioteca
 #include <Arduino.h>
