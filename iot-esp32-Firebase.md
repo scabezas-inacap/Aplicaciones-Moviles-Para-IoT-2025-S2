@@ -6,6 +6,11 @@ No necesitas la App Android todavía. Puedes actuar en modo `Dios` directamente 
 
 Utilizando **ESP32** o ***ESP8266*** (ya que el Arduino Uno estándar no tiene WiFi nativo, y usar shields complica el código).
 
+## Antes de Comenzar
+
+* Crea una cuenta en [wokwi.com](https://wokwi.com). Puedes usar tu cuenta *GMAIL* o *GitHub*
+* Ten instalado [VSCode](https://code.visualstudio.com/download). Necesitaremos algunas extensiones.
+
 ## 1\. ¿Cómo simular la App?
 
 Para encender el LED sin tener la aplicación, usarás la Consola Web de Firebase como si fuera el control remoto:
