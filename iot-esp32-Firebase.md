@@ -249,3 +249,52 @@ void loop() {
   delay(500);
 }
 ```
+-----
+#6\.**Wokwi es perfecto para esto**. De hecho, para un entorno educativo es incluso mejor porque elimina los problemas de drivers USB, cables rotos y permite que los estudiantes practiquen en casa sin hardware físico.
+
+Wokwi tiene una característica llamada "Virtual WiFi" que conecta el ESP32 simulado a internet a través de la conexión de tu computadora.
+
+Aquí tienes los ajustes específicos para que el código anterior funcione en Wokwi:
+
+### 1\. Cambio en las Credenciales WiFi
+
+En Wokwi, la red WiFi simulada **siempre** tiene el mismo nombre y contraseña (vacía). Debes cambiar estas dos líneas en el código que te pasé antes:
+
+```cpp
+// Credenciales OBLIGATORIAS para Wokwi
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
+```
+
+### 2\. Cómo instalar la biblioteca en Wokwi
+
+Como no tienes el "Gestor de bibliotecas" tradicional, debes decirle a Wokwi qué bibliotecas usar:
+
+1.  En la interfaz de Wokwi, busca la pestaña **"Library Manager"** (icono de biblioteca a la izquierda) o el archivo `diagram.json` si eres usuario avanzado.
+2.  Haz clic en el botón **"+"** (Add a new library).
+3.  Escribe y selecciona: **"Firebase Arduino Client Library for ESP8266 and ESP32"** (la misma de Mobizt).
+
+### 3\. Tu esquema de conexión (Diagrama)
+
+Solo necesitas:
+
+  * Una placa **ESP32** (la opción por defecto en Wokwi).
+  * Un **LED** (búscalo con el signo `+`).
+  * Una **Resistencia** de 220 ohm (opcional en simulación, pero buena práctica).
+  * Conecta el **Ánodo** del LED (pata larga) al **Pin D2** (o el que definas en el código).
+  * Conecta el **Cátodo** a **GND**.
+
+### Resumen de la dinámica en Wokwi
+
+1.  Pega el código completo (con el cambio de WiFi "Wokwi-GUEST").
+2.  Añade la biblioteca desde el gestor.
+3.  Dale al botón "Play" (verde).
+4.  Verás en la consola "Connecting to WiFi... Connected".
+5.  Ve a tu consola de Firebase real, cambia el valor, y verás el LED virtual encenderse en la pantalla.
+
+Aquí tienes un video que muestra cómo funciona la conexión a internet y APIs externas dentro del simulador Wokwi, lo cual valida que podrás conectar con Firebase sin problemas:
+
+[Montaje 20: Programado un ESP32 y conectando a WiFI en Wokwi con APIs](https://www.youtube.com/watch?v=xHyhqIvujdw)
+
+Este video es relevante porque demuestra empíricamente que el ESP32 virtual en Wokwi tiene salida real a internet para consultar datos externos.
+
