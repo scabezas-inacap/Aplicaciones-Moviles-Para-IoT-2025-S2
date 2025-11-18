@@ -2,9 +2,16 @@
 
 Haremos un código en Arduino para controlar la temperatura.
 
-Tendremos indicadores LED que nos digan como un semáforo si estamos dentro de una temperatura ideal. Tendremos márgenes para FRIO y para CALOR.
+Tendremos indicadores LED que nos digan como un semáforo si estamos dentro de una temperatura ideal. Tendremos márgenes para `FRIO` y para `CALOR`.
 
 Simule el sensor de temperatura con un potenciometro.
+
+## Circuito
+
+<p align="center">
+  <img src="https://www.sebastiancabezas.cl/imgs/externas/circuito_temperatura.webp" alt="Circuito Temperatura" width="900">
+</p>
+
 
 LEDS:
 * Rojo-Frío Crítico
