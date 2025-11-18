@@ -47,8 +47,114 @@ Para que esto funcione sin lidiar con autenticación compleja (haremos esto sól
       * **Web API Key:** Está en Configuración del Proyecto (engranaje) -\> Cuentas de servicio -\> Secretos de la base de datos (o en Configuración general -\> Web API Key).
 
 -----
+## 4\. Paso a Paso
 
-## 4\. El Código para Arduino (ESP32)
+1\. Agregar la biblioteca `Firebase Arduino Client Library for ESP8266 and ESP32`:
+```ino
+Firebase Arduino Client Library for ESP8266 and ESP32
+```
+2\. En el archivo de programación, agrega la biblioteca `Arduino` + `Firebase`:
+```ino
+// 1. Agregar la biblioteca
+#include <Arduino.h>
+#include <Firebase_ESP_Client.h>
+#if defined(ESP32)
+  #include <WiFi.h>
+#endif
+```
+3\. En el archivo de programación, agrega la configuración del Wifi y de Firebase la definición de API KEY + URL y las instancias de los objetos de Firebase
+```ino
+// 2. Credenciales de RED
+#define WIFI_SSID "Wokwi-GUEST"
+#define WIFI_PASSWORD ""
+
+// 3. Firebase
+#define API_KEY "[API KEY]"
+#define DATABASE_URL "[URL]"
+
+// 4. Definición de Objetos Firebase
+FirebaseData fbdo;
+FirebaseAuth auth;
+FirebaseConfig config;
+```
+
+4\. Configuración de LEDs
+```ino
+// Pin del LED (En NodeMCU D4 suele ser el LED integrado, pero invertido)
+// Ajusta según tu placa.
+const int ledPin = 2; 
+
+unsigned long sendDataPrevMillis = 0;
+bool signupOK = false;
+```
+
+5\. Configuración `void setup()`
+```ino
+void setup() {
+  Serial.begin(115200);
+  pinMode(ledPin, OUTPUT);
+
+  // Conexión WiFi
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Conectando a WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(300);
+  }
+  Serial.println();
+  Serial.print("Conectado con IP: ");
+  Serial.println(WiFi.localIP());
+
+  // Configuración Firebase
+  config.api_key = API_KEY;
+  config.database_url = DATABASE_URL;
+
+  // Habilitar reconexión WiFi si se pierde
+  Firebase.reconnectWiFi(true);
+
+  /* Registrar usuario anónimo para obtener token (necesario en versiones nuevas de la lib) */
+  if (Firebase.signUp(&config, &auth, "", "")) {
+    Serial.println("Conexión a Firebase Exitosa");
+    signupOK = true;
+  } else {
+    Serial.printf("%s\n", config.signer.signupError.message.c_str());
+  }
+
+  // Inicializar la librería
+  Firebase.begin(&config, &auth);
+}
+```
+6\. `void loop`
+```ino
+void loop() {
+  // Verificamos si estamos listos y si ha pasado un pequeño tiempo (para no saturar)
+  if (Firebase.ready() && signupOK) {
+    
+    // LEER el valor desde Firebase (Ruta: /estado_led)
+    // Usamos getBool porque simularemos con true/false en la consola
+    if (Firebase.RTDB.getBool(&fbdo, "/estado_led")) {
+      
+      if (fbdo.dataType() == "boolean") {
+        bool ledStatus = fbdo.boolData();
+        Serial.print("Estado recibido de Firebase: ");
+        Serial.println(ledStatus ? "ENCENDIDO" : "APAGADO");
+
+        // Actuar sobre el Hardware
+        digitalWrite(ledPin, ledStatus ? HIGH : LOW);
+      }
+
+    } else {
+      // Si falla la lectura, imprimir el error (útil para debug en clase)
+      Serial.println(fbdo.errorReason());
+    }
+  }
+  
+  // Pequeño delay para estabilidad
+  delay(500);
+}
+```
+-----
+## 5\. El Código para Arduino (ESP32)
 
 Este código está listo para copiar y pegar en tu clase. Se conecta al WiFi, luego a Firebase, y se queda escuchando cambios en la variable `/estado_led`.
 
