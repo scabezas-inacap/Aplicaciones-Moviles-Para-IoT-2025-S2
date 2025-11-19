@@ -11,7 +11,7 @@
 
 ## Unidad 3: Firebase con Android y Arduino
 
-* [IoT con ESP32 (Arduino con esteroides) y RTDB de Firebase](https://github.com/scabezas-inacap/Aplicaciones-Moviles-Para-IoT-2025-S2/blob/main/iot-esp32-Firebase.md)
+* [IoT con ESP32 (Arduino con esteroides) y RTDB de Firebase](https://github.com/scabezas-inacap/Aplicaciones-Moviles-Para-IoT-2025-S2/blob/main/IoT-ESP32-FisicoFirebase.md)
 
 ## Unidad 4: 
 
