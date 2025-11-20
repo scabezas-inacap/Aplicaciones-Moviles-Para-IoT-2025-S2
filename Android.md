@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
 3. Modificar el archivo **build.gradle (:app)** agregando la dependencia de Google Services Gradle Plugin
 
 ```java
-id 'com.google.gms.google-services'
+    id("com.google.gms.google-services") version "4.4.4" apply false
 ```
 
 Quedando así la sección de **Plugins**:
