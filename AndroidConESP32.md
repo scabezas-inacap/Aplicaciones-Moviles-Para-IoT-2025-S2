@@ -106,6 +106,18 @@ Crearemos el `Activity Login` que incluye una capa de vista (XML) y una capa de 
 
 1. Haz click derecho la carpeta `app` del proyecto > `new` > `Activity` > `Empty Views Activity`.
 2. Ingresa el nombre `LoginActivity`. Revisa que el `Source Language` sea `Java` y haz click en `Finish`.
+3. Cambia el nombre del `MainActivity` por el de `HomeActivity`.
+4. Modifica el archivo `AndroidManifest.xml` (está ubicado en `app` > `src` > `main`). Deberás reemplazar todo el bloque `Activity` por el siguiente:
+
+```xml
+        <activity android:name=".LoginActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HomeActivity" />
+```
 
 #### 2.2.1.1\. Vista de Login Activity
 
@@ -113,4 +125,141 @@ Ve a la carpeta `app` > `src` > `main` > `res` > `layout`  y selecciona `activit
 
 Nos abrirá el GUI para ingresar los distintos controles en nuestra app.
 
-1. En la paleta (`Palette`) ve hasta `Layouts` y toma (click con el mouse para arrastrar) el que dice `LinearLayout (vertical)`
+1. En la paleta (`Palette`) ve hasta `Layouts` y toma (click con el mouse para arrastrar) el control `LinearLayout (vertical)` hasta la pantalla en blanco.
+2. En `Palette` ve hasta `Text` y toma el control `E-mail` y arrástralo hasta la pantalla en blanco, quedará ubicado arriba.
+3. En `Palette` ve hasta `Text` y toma el control `Password` y arrástralo hasta la pantalla en blanco, quedará ubicado abajo del primero.
+4. En `Palette` ve hasta `Buttons` y toma el control `Button` y arrástralo hasta la pantalla en blanco, quedará ubicado abajo del segundo.
+5. En `Palette` ve hasta `Buttons` y toma el control `Button` y arrástralo hasta la pantalla en blanco, quedará ubicado abajo del tercero.
+6. Selecciona el primer `textView` que usamos para el `email`, para que modifiquemos sus atributos en `Attributes`:
+- id -> etUsername
+- hint -> Email
+- textAlignment -> Center
+7. Selecciona el segundo `textView` que usamos para el `contraseña`, para que modifiquemos sus atributos en `Attributes`:
+- id -> etPassword
+- hint -> Contraseña
+- textAlignment -> Center
+8. Selecciona el primer `Button` que usaremos para `Ingresar`, para que modifiquemos sus atributos en `Attributes`:
+- id -> btnIngresar
+- text -> Ingresar
+9. Selecciona el primer `Button` que usaremos para `Registrar`, para que modifiquemos sus atributos en `Attributes`:
+- id -> btnRegistrar
+- text -> Registrar
+
+#### 2.2.1.2\. Negocio de Login Activity
+
+Ve a la carpeta `app` > `src` > `main` > `java` > `com.example.appandroidconfirebase`  y selecciona `LoginActivity`. 
+
+Declara los controles para acceder a sus características. Dentro de la clase `LoginActivity` antes de comenzar con el método `onCreate`, coloca las siguientes líneas:
+
+```java
+private EditText etUsername, etPassword;
+private Button btnRegistrar, btnAcceder;
+private FirebaseAuth mAuth; // Variable de Firebase Auth
+```
+
+Dentro del método `onCreate`, llegarás a la línea de `setContentView(R.layout.activity_login);` harás varios `Enter` para generar el espacio para copiar el siguiente código:
+
+```java
+// Inicializar Firebase Auth
+mAuth = FirebaseAuth.getInstance();
+
+// Referenciar Vistas
+etUsername = findViewById(R.id.etUsername); // Asegúrate que este ID exista en tu XML
+etPassword = findViewById(R.id.etPassword); // Asegúrate que este ID exista en tu XML
+btnRegistrar = findViewById(R.id.btnRegistrar); // Asegúrate que este ID exista en tu XML
+btnAcceder = findViewById(R.id.btnAcceder); // Asegúrate que este ID exista en tu XML
+
+// Listener para Registrar
+btnRegistrar.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String email = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        registrarUsuario(email, password);
+    }
+});
+
+// Listener para Acceder
+btnAcceder.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        iniciarSesion(email, password);
+    }
+});
+```
+
+Después del método `onCreate` crearemos el método `onStart` con el siguiente código:
+
+```java
+@Override
+protected void onStart() {
+    super.onStart();
+    // Comprobar si el usuario ya inició sesión
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    if (currentUser != null) {
+        // Si ya hay sesión, vamos directo al Home
+        irAHome();
+    }
+}
+```
+
+Ahora debemos agregar las funciones y métodos para `registrarUsuario`, `iniciarSesion` e `irAHome`:
+
+```java
+private void registrarUsuario(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Email y Password no pueden estar vacíos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Registro exitoso
+                        Toast.makeText(LoginActivity.this, "Registro Exitoso.", Toast.LENGTH_SHORT).show();
+                        irAHome();
+                    } else {
+                        // Falla en el registro
+                        Toast.makeText(LoginActivity.this, "Fallo el registro: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+    }
+
+private void iniciarSesion(String email, String password) {
+    if (email.isEmpty() || password.isEmpty()) {
+        Toast.makeText(this, "Email y Password no pueden estar vacíos", Toast.LENGTH_SHORT).show();
+        return;
+    }
+
+    mAuth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Login exitoso
+                    Toast.makeText(LoginActivity.this, "Login Exitoso.", Toast.LENGTH_SHORT).show();
+                    irAHome();
+                } else {
+                    // Falla en el login
+                    Toast.makeText(LoginActivity.this, "Fallo el login: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+}
+
+// Método para navegar a la siguiente pantalla
+private void irAHome() {
+    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+    // Flags para que no pueda volver al Login presionando "atrás"
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    startActivity(intent);
+}
+```
+
+Para terminar debes importar todos los subrayados en rojo.
+
