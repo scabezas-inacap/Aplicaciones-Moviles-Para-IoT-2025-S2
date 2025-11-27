@@ -76,6 +76,28 @@ Accede a la consola de `Firebase` para obtener el archivo de configuración. Est
 7. Nos permitirá descargar el archivo de configuración en el botón llamado `Descargar google-services.json` y click en `Siguiente`.
 8. Nos indicará que debemos arrastrar el archivo a la carpeta `app` de nuestro proyecto en Android Studio. Arrastra el archivo `google-services.json` que descargaste hasta Android Studio como se muestra en la imagen de Firebase.
 9. Haz click en `Refactor`
+10. De las instrucciones disponibles en Firebase, haremos lo siguiente: Agrega el complemento como una dependencia a tu archivo build.gradle de nivel de proyecto: **Archivo de Gradle de nivel de raíz (nivel de proyecto) (<project>/build.gradle): **
+
+    En `plugins` agregarás abajo de `alias(libs.plugins.android.application) apply false` el siguiente código:
+    
+    ```bash
+    // Add the dependency for the Google services Gradle plugin
+    id 'com.google.gms.google-services' version '4.4.4' apply false
+    ```
+11. En el otro archivo `<app>/build.gradle`, en `plugins` abajo de `alias(libs.plugins.android.application)` agregarás el siguiente código:
+    ```bash
+    // Add the Google services Gradle plugin
+    id 'com.google.gms.google-services'
+    ```
+12. En este mismo archivo `<app>/build.gradle` colocarás al final antes que terminen las dependencias (debe estar en el bloque dependencias) el siguiente código:
+    ```bash
+    // En el bloque 'dependencies'
+    implementation platform('com.google.firebase:firebase-bom:34.6.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    ```
+13. Haz click en `Sync Now`, espera un momento y estarás listo para comenzar a programar en Android.
 
 ## 2.2\. Login
+
 
