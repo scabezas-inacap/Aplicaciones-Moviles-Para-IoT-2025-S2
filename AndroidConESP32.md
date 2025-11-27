@@ -18,3 +18,64 @@ Herramientas Electrónicas:
 * Protoboard
 * Cables
 
+# 1\. Configuración de la Base de Datos
+
+1. Ingresamos a la [Consola de Firebase](https://console.firebase.google.com) y crearemos un `Nuevo Proyecto`.
+2. Nos preguntará si queremos la `Asistencia de IA para tu proyecto de Firebase` - Click en `Continuar`.
+3. Nos preguntará si queremos `Google Analytics para tu proyecto de Firebase` - Click en `Continuar`.
+4. Si aceptaste `Google Analytics`, pedirá  `Elige o crea una cuenta de Google Analytics`. Selecciona la `Default Account for Firebase` - Click en `Crear proyecto`
+5. Esperamos a que Firebase prepare nuestro proyecto. Al finalizar nos indicará `Tu proyecto de Firebase está listo` - Click en `Continuar`
+
+## 1.1\. Elementos de Firebase (Autenticación)
+
+El proyecto debe ser conectado de manera segura, es por eso que generaremos una autenticación controlada por `Firebase`.
+
+1. En el menú lateral izquierdo seleccionamos `Compilación` > `Authentication`.
+2. Haremos la configuración del `Autenticador`. Haz click en `Comenzar`.
+3. Seleccionaremos desde la lista de `Proveedores nativos` > `Correo electrónico\contraseña`.
+4. Dejaremos Habilitado en la opción `Habilitar`. Luego click en `Guardar`.
+5. Agregaremos un nuevo proveedor en la opción `Agregar proveedor nuevo`.
+6. Seleccionaremos desde la lista de `Proveedores nativos` > `Anónimo`.
+7. Dejaremos Habilitado en la opción `Habilitar`. Luego click en `Guardar`.
+
+De esta forma podremos controlar el acceso a la aplicación con Usuario y Contraseña, pero además dejaremos una puerta abierta para facilitar el proceso de lectura y escritura de la base de datos con el ESP32 con la autenticación anónima.
+
+## 1.2\. Elementos de Firebase (Realtime Database)
+
+El proyecto debe tener una base de datos, es por eso que generaremos una en tiempo real entregada por `Firebase`.
+
+1. En el menú lateral izquierdo seleccionamos `Compilación` > `Realtime Database`.
+2. Haremos la configuración de la `Base de Datos`. Haz click en `Crear una base de datos`.
+3. Preguntará por `El parámetro de configuración de la ubicación determina en qué lugar se almacenarán tus datos de Realtime Database` y la `Ubicación de Realtime Database`. Seleccione `Estados Unidos (us-central1)`.
+4. Cuando definas la estructura de los datos, deberás crear reglas para protegerlos. Seleccione `Comenzar en **modo de prueba**` dejará la base de datos protegida por 30 días.
+
+# 2\. Aplicación en Android
+
+Haremos una aplicación con al menos 2 activities. Una para ingresar y registrar los datos del usuario (`LoginActivity`) y otra para interactuar con el ESP32 (`HomeActivity`).
+
+1. Abre Android Studio y Crea un nuevo Proyecto (`New Project`)
+2. Selecciona `Empty Views Activity`.
+3. Ingresa el nombre de tu aplicación, en mi caso `AppAndroidConFirebase`.
+4. En `Package name` te darás cuenta que genera un nombre automáticamente, en mi caso `com.example.com.appandroidconfirebase`.
+5. En `Save location` puedes dejar la ruta actual, quedará en la carpeta raíz del usuario en la carpeta `AndroidStudioProjects` y el nombre de su aplicación.
+6. En `Language` selecciona `Java`.
+7. En `Minimum SDK` selecciona `API 24`
+8. En `Build configuration language` selecciona `Groovy DSL (build.gradle)`.
+9. Finalmente, antes de hacer click en finalizar, copia el `Package name` para llevarlo a `Firebase`. Luego haz click en `Finish` y espera a que se cree el proyecto Android.
+
+## 2.1\. Archivo de Configuración de la Aplicación
+
+Accede a la consola de `Firebase` para obtener el archivo de configuración. Esto permite conectar la `Autenticación` y la `Base de datos` con nuestra aplicación.
+
+1. En el menú lateral izquierdo seleccionamos `La rueda de configuración` > `Configuración del proyecto`.
+2. Comenzaremos en la pestaña `General`. Hay que bajar hasta `Tus apps`.
+3. Seleccionará `Android` en el ícono del robot.
+4. Se abrirá una pestaña para `Agregar Firebase a tu app para Android`.
+5. Ingresa el nombre del paquete de android. en mi caso `com.example.appandroidconfirebase`.
+6. Luego ingresa el nombre de la App, en mi caso `App Android con Firebase` y click en `Registrar App`.
+7. Nos permitirá descargar el archivo de configuración en el botón llamado `Descargar google-services.json` y click en `Siguiente`.
+8. Nos indicará que debemos arrastrar el archivo a la carpeta `app` de nuestro proyecto en Android Studio. Arrastra el archivo `google-services.json` que descargaste hasta Android Studio como se muestra en la imagen de Firebase.
+9. Haz click en `Refactor`
+
+## 2.2\. Login
+
