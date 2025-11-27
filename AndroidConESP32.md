@@ -100,4 +100,17 @@ Accede a la consola de `Firebase` para obtener el archivo de configuración. Est
 
 ## 2.2\. Login
 
+### 2.2.1\. Crear Activity Login
 
+Crearemos el `Activity Login` que incluye una capa de vista (XML) y una capa de negocio (JAVA).
+
+1. Haz click derecho la carpeta `app` del proyecto > `new` > `Activity` > `Empty Views Activity`.
+2. Ingresa el nombre `LoginActivity`. Revisa que el `Source Language` sea `Java` y haz click en `Finish`.
+
+#### 2.2.1.1\. Vista de Login Activity
+
+Ve a la carpeta `app` > `src` > `main` > `res` > `layout`  y selecciona `activity_login.xml`. 
+
+Nos abrirá el GUI para ingresar los distintos controles en nuestra app.
+
+1. En la paleta (`Palette`) ve hasta `Layouts` y toma (click con el mouse para arrastrar) el que dice `LinearLayout (vertical)`
