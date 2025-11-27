@@ -153,7 +153,7 @@ Declara los controles para acceder a sus características. Dentro de la clase `L
 
 ```java
 private EditText etUsername, etPassword;
-private Button btnRegistrar, btnAcceder;
+private Button btnRegistrar, btnIngresar;
 private FirebaseAuth mAuth; // Variable de Firebase Auth
 ```
 
@@ -167,7 +167,7 @@ mAuth = FirebaseAuth.getInstance();
 etUsername = findViewById(R.id.etUsername); // Asegúrate que este ID exista en tu XML
 etPassword = findViewById(R.id.etPassword); // Asegúrate que este ID exista en tu XML
 btnRegistrar = findViewById(R.id.btnRegistrar); // Asegúrate que este ID exista en tu XML
-btnAcceder = findViewById(R.id.btnAcceder); // Asegúrate que este ID exista en tu XML
+btnIngresar = findViewById(R.id.btnIngresar); // Asegúrate que este ID exista en tu XML
 
 // Listener para Registrar
 btnRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -180,10 +180,10 @@ btnRegistrar.setOnClickListener(new View.OnClickListener() {
 });
 
 // Listener para Acceder
-btnAcceder.setOnClickListener(new View.OnClickListener() {
+btnIngresar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        String email = etEmail.getText().toString().trim();
+        String email = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         iniciarSesion(email, password);
     }
